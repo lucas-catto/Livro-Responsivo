@@ -1,0 +1,118 @@
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+    * {
+        margin:           0;
+        padding:          0;
+        border:           0;
+        box-sizing:       border-box;
+        font-family:      'Roboto', sans-serif;
+    }
+
+    :root {
+        --default: rgb(0, 9, 109);
+    }
+
+    html, body {
+        width:            100%;
+        height:           auto;
+        min-height:       100vh;
+    }
+
+    .container {
+        margin:           0 auto;
+        width:            100%;
+        max-width:        1200px;
+        height:           auto;
+        min-height:       100vh;
+        /*
+        border-left:      1px solid blue;
+        border-right:     1px solid blue;
+        */
+
+        display:          flex;
+        flex-direction:   column;
+        justify-content:  space-between;
+
+        background-color: var(--default);
+    }
+
+    header {
+        width:            100%;
+        height:           auto;
+        padding:          33px 15px;
+        border-bottom:    1px solid white;
+        text-align:       center;
+    }
+
+    h1 {
+        font-size:        4vw;
+        color:            white;
+    }
+
+    main {
+        display:          flex;
+        flex-wrap:        wrap;
+        justify-content:  space-evenly;
+
+        padding:          15px 0;
+        gap:              10px;
+    }
+
+    img {
+        width:            100%;
+        max-width:        300px;
+        height:           auto;
+        vertical-align:   middle;
+        border-radius:    10%;
+        border:           1px solid var(--default);
+    }
+
+    img:hover {
+        transform:        scale(1.07);
+        transition:       .25s;
+    }
+
+    footer {
+        width:            100%;
+        padding:          22px 15px;
+        border-top:       1px solid white;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Livros</title>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Books</h1>
+            </header>
+            <main id="main"></main>
+            <footer></footer>
+        </div>
+    </body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        fetch('./data.json')
+            .then(response => response.json())
+            .then(data => {
+                
+                let books = '';
+
+                data.Books.forEach(book => {
+                    books += ` <img src="./img/${ book.BookPath }.png"> `;
+                });
+                document.getElementById('main').innerHTML = books;
+            })
+            .catch(error = console.error('Error:', error));
+    });
+</script>
